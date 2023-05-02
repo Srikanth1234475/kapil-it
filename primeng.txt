@@ -1,0 +1,187 @@
+employeecomponent.ts:
+
+import { Component, OnInit } from '@angular/core';
+import { PrimeNGConfig } from 'primeng/api';
+import { VinuService } from '../vinu.service';
+@Component({
+  selector: 'app-employeetable',
+  templateUrl: './employeetable.component.html',
+  styleUrls: ['./employeetable.component.scss']
+})
+export class EmployeetableComponent implements OnInit {
+displayBasic: boolean = false
+  products:any=[] ;
+  constructor( private primeNGConfig: PrimeNGConfig , private pservice:VinuService) { }
+
+  ngOnInit(): void {
+    this.primeNGConfig.ripple = true;
+
+    this.pservice.vinu().subscribe((res:any)=>{
+
+      console.log(res)
+
+      this.products=res;
+
+
+
+  })
+
+ 
+
+  }
+  }
+
+
+employeecomponent.html:
+<p-table [value]="products" responsiveLayout="scroll">
+
+
+
+    <ng-template pTemplate="header">
+
+        <tr>
+
+            <th>User ID</th>
+            <th>StudentName</th>
+            <th>Roll No</th>
+            <th>Course Name</th>
+            <th>Phone Number</th>
+            <th>Email ID</th>
+            <th>Percentage</th>
+
+            
+
+
+        </tr>   
+    </ng-template>
+
+    <ng-template pTemplate="body" let-product>
+
+        <tr>
+
+            <td>{{product.id}}</td>
+
+            <td>{{product.studentname}}</td>
+
+            <td>{{product.coursename}}</td>
+
+            <td>{{product.phonenum}}</td>
+
+            <td>{{product.email}}</td>
+
+            <td>{{product.rollno}}</td>
+
+            <td>{{product.percentage}}</td>
+
+         
+
+        </tr>
+
+    </ng-template>
+
+</p-table>
+
+
+vinuservice.ts:
+import { Injectable } from '@angular/core';
+import { HttpClientModule} from '@angular/common/http';
+@Injectable({
+  providedIn: 'root'
+})
+export class VinuService {
+
+
+  
+  constructor(private http:HttpClient) { }
+    vinu(){
+       return this.http.get('../assets/vinu.json');
+  }
+
+
+}
+
+vinu.json:
+[
+
+    {
+
+        "id":"01",
+
+        "studentname": "sravani",
+
+        "coursename": "Angular",
+
+        "phonenum": "7894561230",
+
+        "email": "sravani@gmail.com",
+
+        "rollno": "3143 ",
+
+        "percentage": 90
+
+       
+
+   
+
+    },
+    {
+
+        "id":"02",
+
+        "studentname": "Shivani",
+
+        "coursename": "Salesforce",
+
+        "phonenum": "7894561239",
+
+        "email": "shivani@gmail.com",
+
+        "rollno": "1045",
+
+        "percentage": 60
+
+   
+
+    },
+    {
+
+        "id":"03",
+
+        "studentname": "Radika",
+
+        "coursename": "Java",
+
+        "phonenum": "7894561232",
+
+        "email": "radika@gmail.com",
+
+        "rollno": "5897",
+
+        "percentage": 80
+
+   
+
+    },
+    {
+
+        "id":"04",
+
+        "studentname": "Vijaya",
+
+        "coursename": "Mainframe",
+
+        "phonenum": "7894561233",
+
+        "email": "vijaya@gmail.com",
+
+        "rollno": "1295",
+
+        "percentage": 60
+
+   
+
+    }
+
+]
+
+
